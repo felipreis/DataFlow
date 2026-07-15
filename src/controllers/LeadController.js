@@ -7,7 +7,7 @@ async function create(req,res){
         const retorno = await LeadService.create(payload);
         responseHttp(retorno,res) 
     } catch (error) {
-         console.error(error);
+        console.error(error);
        if(error.message === "É obrigatório informar e-mail ou telefone." ||
          error.message === "Source é obrigatório." ||
          error.message === "Nome é obrigatório." ) {return res.status(400).json({message: error.message})}
@@ -21,6 +21,12 @@ async function create(req,res){
 
 }
 
+async function getAllLeads(req,res){
+    const retorno = await LeadService.getAllLeads();
+    responseHttp(retorno,res);
+}
+
 export default {
-    create
+    create,
+    getAllLeads
 }

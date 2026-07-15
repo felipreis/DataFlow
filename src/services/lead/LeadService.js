@@ -21,7 +21,12 @@ async function create(payload){
     return await LeadRepository.create(payload);
 }
 
+async function getAllLeads(){
+    return await LeadRepository.getAllLeads();
+}
+
 export default {
     create,
+    getAllLeads
 }
 
