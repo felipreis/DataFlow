@@ -9,5 +9,6 @@ router.get('/health', (req,res) => {
 
 router.post('/lead',LeadController.create)
 router.get('/lead',LeadController.getAllLeads)
+router.get('/lead/:id',LeadController.getLeadById)
 
 export default router;

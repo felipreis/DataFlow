@@ -25,8 +25,15 @@ async function getAllLeads(){
     return await LeadRepository.getAllLeads();
 }
 
+async function getLeadById(id){
+    const lead = await LeadRepository.getLeadById(id);
+    if(!lead){ throw new Error('Lead não encontrado')}
+    return lead
+}
+
 export default {
     create,
-    getAllLeads
+    getAllLeads,
+    getLeadById
 }
 
