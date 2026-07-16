@@ -31,9 +31,18 @@ async function getLeadById(id){
     return lead
 }
 
+async function updateStatus(id,status){
+    if (status.status !== 'RECEIVED' && status.status !== 'QUALIFIED' && status.status !== 'SALE' ){throw new Error('Não é possível alterar status') }
+    const lead = await LeadRepository.getLeadById(id)
+    if(!lead){ throw new Error('Lead não encontrado')}
+
+    return await LeadRepository.updateStatus(id,status)
+}
+
+
 export default {
     create,
     getAllLeads,
-    getLeadById
+    updateStatus
 }
 

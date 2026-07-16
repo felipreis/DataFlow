@@ -37,8 +37,28 @@ async function getLeadById(req,res){
     }    
 }
 
+async function updateStatus(req,res){
+    try {
+        const {id} = req.params;
+        const status = req.body
+        const retorno = await LeadService.updateStatus(id,status);
+        responseHttp(retorno,res)
+    } catch (error) {
+        if(error.message === 'Não é possível alterar status'){
+            return res.status(401).json({message: error.message})
+        }
+
+        if(error.message === 'Lead não encontrado'){
+            return res.status(404).json({message: error.message})
+        }
+
+        return status(500).json({message:error.message})
+    }
+}
+
 export default {
     create,
     getAllLeads,
-    getLeadById
+    getLeadById,
+    updateStatus
 }
