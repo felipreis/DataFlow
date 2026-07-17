@@ -1,5 +1,6 @@
 import express from 'express'
 import LeadController from '../controllers/LeadController.js';
+import JourneyEventController from '../controllers/JourneyEventController.js';
 
 const router = express.Router();
 
@@ -11,5 +12,7 @@ router.post('/lead',LeadController.create)
 router.get('/lead',LeadController.getAllLeads)
 router.get('/lead/:id',LeadController.getLeadById)
 router.put('/lead/:id/status',LeadController.updateStatus)
+
+router.get('/lead/:id/journey',JourneyEventController.getByLeadId)
 
 export default router;

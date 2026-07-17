@@ -1,6 +1,7 @@
 import LeadRepository from '../../repositories/lead/LeadRepository.js'
 import validarEmail from '../../middlewares/validator.js'
 import validators from "../../middlewares/validator.js";
+import JourneyEventService from '../../services/lead/JourneyEventService.js';
 
 
 async function create(payload){
@@ -18,7 +19,17 @@ async function create(payload){
         throw new Error ('Formato de email inválido')
     }
 
-    return await LeadRepository.create(payload);
+    const lead =  await LeadRepository.create(payload);
+
+    await JourneyEventService.create({
+        lead_id: lead.id,
+        event: "LEAD_RECEIVED",
+        description: "Lead recebido",
+        payload: {}
+    });
+
+    return lead;
+
 }
 
 async function getAllLeads(){
@@ -36,7 +47,22 @@ async function updateStatus(id,status){
     const lead = await LeadRepository.getLeadById(id)
     if(!lead){ throw new Error('Lead não encontrado')}
 
-    return await LeadRepository.updateStatus(id,status)
+    const oldStatus = lead.status
+    const newStatus = status.status
+
+    const updateLead = await LeadRepository.updateStatus(id,status);
+
+    await JourneyEventService.create({
+        lead_id: lead.id,
+        event: "STATUS_CHANGED",
+        description: `Status alterado de ${oldStatus} para ${newStatus}`,
+        payload: {
+            old_status: oldStatus,
+            new_status: newStatus
+        }
+    });
+
+    return updateLead;
 }
 
 
