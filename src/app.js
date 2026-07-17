@@ -3,6 +3,7 @@ import 'dotenv/config'
 import router from './routes/routes.js';
 import sequelize from './config/dataBaseConfig.js'
 import Lead from './models/lead/Lead.js';
+import JourneyEvent from './models/lead/JourneyEvent.js';
 
 
 const app = express();
@@ -19,6 +20,7 @@ async function startServer(){
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
         Lead.sync();
+        JourneyEvent.sync();
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
