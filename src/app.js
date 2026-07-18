@@ -20,7 +20,7 @@ async function startServer(){
 
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
-        Lead.sync({force:true});
+        Lead.sync();
         JourneyEvent.sync();
         Organization.sync()
     } catch (error) {
