@@ -1,6 +1,6 @@
 import express from 'express'
-import LeadController from '../controllers/LeadController.js';
-import JourneyEventController from '../controllers/JourneyEventController.js';
+import LeadController from '../controllers/lead/LeadController.js';
+import JourneyEventController from '../controllers/lead/JourneyEventController.js';
 
 const router = express.Router();
 
