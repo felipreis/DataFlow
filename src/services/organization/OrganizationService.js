@@ -7,9 +7,13 @@ async function create(payload){
     const organization = {...payload, api_key: apiKey}
 
     return await OrganizationRepository.create(organization);
+}
 
+async function findByApiKey(api_key){
+    return await OrganizationRepository.findByApiKey(api_key)
 }
 
 export default {
-    create
+    create,
+    findByApiKey
 }

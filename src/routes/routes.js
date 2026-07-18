@@ -17,6 +17,7 @@ router.put('/lead/:id/status',LeadController.updateStatus)
 router.get('/lead/:id/journey',JourneyEventController.getByLeadId)
 
 router.post('/organizations',OrganizationController.create);
+router.get('/organizations/:api_key',OrganizationController.findByApiKey)
 
 
 export default router;
