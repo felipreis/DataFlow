@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../../config/dataBaseConfig.js"
+import Organization from "../organization/Organization.js";
 
 const Lead = sequelize.define(
   'Lead',
@@ -10,6 +11,14 @@ const Lead = sequelize.define(
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true
+    },
+    organization_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+          model: Organization,
+          key: "id"
+      }
     },
     source_id: {
       type: DataTypes.STRING,
@@ -125,5 +134,15 @@ const Lead = sequelize.define(
   }
  
 );
+
+Organization.hasMany(Lead,{
+    foreignKey:"organization_id",
+    as:"leads"
+});
+
+Lead.belongsTo(Organization,{
+    foreignKey:"organization_id",
+    as:"organization"
+});
 
 export default Lead;
