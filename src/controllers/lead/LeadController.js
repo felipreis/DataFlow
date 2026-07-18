@@ -4,7 +4,12 @@ import LeadService from '../../services/lead/LeadService.js'
 async function create(req,res){
     try {
         const payload = req.body;
-        const retorno = await LeadService.create(payload);
+        const organization_id = req.organization.id
+        delete payload.organization_id;
+        
+        const lead = {...payload,organization_id:organization_id}
+        const retorno = await LeadService.create(lead);
+
         responseHttp(retorno,res) 
     } catch (error) {
         console.error(error);
