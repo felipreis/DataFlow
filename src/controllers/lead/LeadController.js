@@ -5,10 +5,11 @@ async function create(req,res){
     try {
         const payload = req.body;
         const organization_id = req.organization.id
+        const organization_status = req.organization.status;
         delete payload.organization_id;
         
         const lead = {...payload,organization_id:organization_id}
-        const retorno = await LeadService.create(lead);
+        const retorno = await LeadService.create(lead,organization_status);
 
         responseHttp(retorno,res) 
     } catch (error) {

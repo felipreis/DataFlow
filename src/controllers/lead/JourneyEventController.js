@@ -4,7 +4,8 @@ import responseHttp from "../../response/responseHttp.js";
 async function getByLeadId(req,res){
     try {
         const {id} = req.params;
-        const retorno = await JourneyEventService.getByLeadId(id);
+        const organization_id = req.organization.id
+        const retorno = await JourneyEventService.getByLeadId(id,organization_id);
         responseHttp(retorno,res) 
     } catch (error) {
         if(error.message === 'Lead não encontrado') { return res.status(404).json({message:error.message})}

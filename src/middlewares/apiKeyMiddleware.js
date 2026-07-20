@@ -1,4 +1,4 @@
-import OrganizationService from "../services/organization/OrganizationService"
+import OrganizationService from "../services/organization/OrganizationService.js"
 
 async function apiKeyMiddleware(req, res, next) {
     try {

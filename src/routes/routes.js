@@ -15,7 +15,7 @@ router.get('/lead',apiKeyMiddleware, LeadController.getAllLeads)
 router.get('/lead/:id',apiKeyMiddleware,LeadController.getLeadById)
 router.put('/lead/:id/status',apiKeyMiddleware, LeadController.updateStatus)
 
-router.get('/lead/:id/journey',JourneyEventController.getByLeadId)
+router.get('/lead/:id/journey',apiKeyMiddleware,JourneyEventController.getByLeadId)
 
 router.post('/organizations',OrganizationController.create);
 router.get('/organizations/:api_key',OrganizationController.findByApiKey)

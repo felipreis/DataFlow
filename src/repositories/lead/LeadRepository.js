@@ -26,8 +26,9 @@ async function updateStatus(id,status,organization_id){
             organization_id: organization_id
         }
     })
+
+    return await getLeadById(id,organization_id);
     
-    return leadUpdate;
 }
 
 

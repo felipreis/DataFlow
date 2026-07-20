@@ -5,8 +5,8 @@ async function create(payload){
     return await JourneyEventRepository.create(payload);
 }
 
-async function getByLeadId(id){
-    const lead = await LeadRepository.getLeadById(id);
+async function getByLeadId(id,organization_id){
+    const lead = await LeadRepository.getLeadById(id,organization_id);
     if(!lead){throw new Error('Lead não encontrado')}
     
     return await JourneyEventRepository.getByLeadId(id);
