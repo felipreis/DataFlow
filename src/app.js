@@ -6,6 +6,7 @@ import sequelize from './config/dataBaseConfig.js'
 import Lead from './models/lead/Lead.js';
 import JourneyEvent from './models/lead/JourneyEvent.js';
 import Organization from './models/organization/Organization.js';
+import ConversionEvent from './models/conversion/ConversionEvent.js';
 
 
 const app = express();
@@ -25,6 +26,7 @@ async function startServer(){
         Lead.sync();
         JourneyEvent.sync();
         Organization.sync()
+        ConversionEvent.sync()
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }
