@@ -1,6 +1,7 @@
 import express from 'express';
 import 'dotenv/config'
 import router from './routes/routes.js';
+import webhookRouter from './routes/webhookRoutes.js';
 import sequelize from './config/dataBaseConfig.js'
 import Lead from './models/lead/Lead.js';
 import JourneyEvent from './models/lead/JourneyEvent.js';
@@ -12,6 +13,7 @@ const PORT = process.env.PORT
 
 app.use(express.json());
 app.use(router);
+app.use(webhookRouter);
 
 
 async function startServer(){

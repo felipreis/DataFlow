@@ -4,7 +4,7 @@ import validators from "../../middlewares/validator.js";
 import JourneyEventService from '../../services/lead/JourneyEventService.js';
 
 
-async function create(payload,organization_status){
+async function create(payload){
     //obrigatoriedade de campos
     if(!payload.phone && !payload.email){throw new Error("É obrigatório informar e-mail ou telefone.")}
     if(!payload.source){ throw new Error("Source é obrigatório.");}

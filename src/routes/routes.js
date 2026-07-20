@@ -21,4 +21,5 @@ router.post('/organizations',OrganizationController.create);
 router.get('/organizations/:api_key',OrganizationController.findByApiKey)
 
 
+
 export default router;
