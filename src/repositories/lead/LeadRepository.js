@@ -6,17 +6,25 @@ async function create(payload){
     return await Lead.create(payload);
 }
 
-async function getAllLeads(){
-    return await Lead.findAll();
+async function getAllLeads(organization_id){
+    return await Lead.findAll({where: {organization_id: organization_id}});
 }
 
-async function getLeadById(id){
-    return await Lead.findByPk(id)
+async function getLeadById(id,organization_id){
+    return await Lead.findOne({
+    where: {
+        id,
+        organization_id
+    }
+})
 }
 
-async function updateStatus(id,status){
-    const leadUpdate = Lead.update(status,{
-        where: {id: id}
+async function updateStatus(id,status,organization_id){
+    const leadUpdate = await Lead.update(status,{
+        where: {
+            id: id, 
+            organization_id: organization_id
+        }
     })
     
     return leadUpdate;

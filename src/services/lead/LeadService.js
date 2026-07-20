@@ -32,25 +32,25 @@ async function create(payload){
 
 }
 
-async function getAllLeads(){
-    return await LeadRepository.getAllLeads();
+async function getAllLeads(organization_id){
+    return await LeadRepository.getAllLeads(organization_id);
 }
 
-async function getLeadById(id){
-    const lead = await LeadRepository.getLeadById(id);
+async function getLeadById(id,organization_id){
+    const lead = await LeadRepository.getLeadById(id,organization_id);
     if(!lead){ throw new Error('Lead não encontrado')}
     return lead
 }
 
-async function updateStatus(id,status){
+async function updateStatus(id,status,organization_id){
     if (status.status !== 'RECEIVED' && status.status !== 'QUALIFIED' && status.status !== 'SALE' ){throw new Error('Não é possível alterar status') }
-    const lead = await LeadRepository.getLeadById(id)
+    const lead = await LeadRepository.getLeadById(id,organization_id)
     if(!lead){ throw new Error('Lead não encontrado')}
 
     const oldStatus = lead.status
     const newStatus = status.status
 
-    const updateLead = await LeadRepository.updateStatus(id,status);
+    const updateLead = await LeadRepository.updateStatus(id,status,organization_id);
 
     await JourneyEventService.create({
         lead_id: lead.id,
@@ -69,6 +69,7 @@ async function updateStatus(id,status){
 export default {
     create,
     getAllLeads,
+    getLeadById,
     updateStatus
 }
 

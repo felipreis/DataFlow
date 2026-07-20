@@ -27,14 +27,16 @@ async function create(req,res){
 }
 
 async function getAllLeads(req,res){
-    const retorno = await LeadService.getAllLeads();
+    const organization_id = req.organization.id
+    const retorno = await LeadService.getAllLeads(organization_id);
     responseHttp(retorno,res);
 }
 
 async function getLeadById(req,res){
     try {
         const {id} = req.params;
-        const retorno =  await LeadService.getLeadById(id);
+        const organization_id = req.organization.id
+        const retorno =  await LeadService.getLeadById(id,organization_id);
         responseHttp(retorno,res);
     } catch (error) {
         if(error.message === 'Lead não encontrado'){ return res.status(404).json({message: error.message})}
@@ -46,7 +48,8 @@ async function updateStatus(req,res){
     try {
         const {id} = req.params;
         const status = req.body
-        const retorno = await LeadService.updateStatus(id,status);
+        const organization_id = req.organization.id
+        const retorno = await LeadService.updateStatus(id,status,organization_id);
         responseHttp(retorno,res)
     } catch (error) {
         if(error.message === 'Não é possível alterar status'){
