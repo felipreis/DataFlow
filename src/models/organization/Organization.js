@@ -28,6 +28,18 @@ const Organization = sequelize.define(
     },
     description: {
     type: DataTypes.STRING
+    },
+    pixel_id:{
+      type:DataTypes.STRING,
+      allowNull:true,
+    },
+    access_token:{
+      type:DataTypes.STRING,
+      allowNull:true
+    },
+    test_event_code:{
+      type:DataTypes.STRING,
+      allowNull:true,
     }
   },
   {
