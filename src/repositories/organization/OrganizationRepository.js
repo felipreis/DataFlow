@@ -12,7 +12,23 @@ async function findByApiKey(apiKey) {
     });
 }
 
+async function findById(id){
+    return await Organization.findByPk(id);
+}
+
+async function metaInfo(id,payload){
+    const updateOrganization = await Organization.update(payload, {
+        where: {
+        id : id
+        }
+    })
+
+    return await findById(id);
+}
+
 export default {
     create,
-    findByApiKey
+    findByApiKey,
+    metaInfo,
+    findById
 }

@@ -19,6 +19,7 @@ router.get('/lead/:id/journey',apiKeyMiddleware,JourneyEventController.getByLead
 
 router.post('/organizations',OrganizationController.create);
 router.get('/organizations/:api_key',OrganizationController.findByApiKey)
+router.put('/organizations/:id/meta',OrganizationController.metaInfo)
 
 
 

@@ -13,7 +13,20 @@ async function findByApiKey(req,res){
     responseHttp(retorno,res)
 }
 
+async function metaInfo(req,res){
+    try {
+        const paylaod = req.body;
+        const {id} = req.params;
+        const retorno = await OrganizationService.metaInfo(id,paylaod);
+        responseHttp(retorno,res);
+    } catch (error) {
+        if(error.message === 'Orgnanização não encontrada!'){ return res.status(404).json({message:error.message})}
+        return res.status(500).json({message:error.message})
+    }
+}
+
 export default {
     create,
-     findByApiKey
+     findByApiKey,
+     metaInfo
 }
