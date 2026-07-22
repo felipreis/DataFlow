@@ -2,6 +2,7 @@ import LeadRepository from '../../repositories/lead/LeadRepository.js'
 import validarEmail from '../../middlewares/validator.js'
 import validators from "../../middlewares/validator.js";
 import JourneyEventService from '../../services/lead/JourneyEventService.js';
+import ConversionService from '../conversion/ConversionService.js';
 
 
 async function create(payload){
@@ -61,6 +62,9 @@ async function updateStatus(id,status,organization_id){
             new_status: newStatus
         }
     });
+
+    if(oldStatus !== "SALE" && newStatus === 'SALE'){await ConversionService.create(updateLead);}
+
 
     return updateLead;
 }

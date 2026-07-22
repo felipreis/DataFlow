@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import sequelize from '../../config/dataBaseConfig.js'
 import Lead from "../lead/Lead.js";
+import Organization from "../organization/Organization.js";
 
 
 const ConversionEvent = sequelize.define(
@@ -54,6 +55,13 @@ const ConversionEvent = sequelize.define(
     processed_at: {
         type: DataTypes.DATE,
         allowNull: true,
+    },
+    organization_id: {
+      type: DataTypes.UUID,
+      allowNull: false,
+      references: {
+          model: Organization,
+          key: "id"
     }
   },
   {
@@ -77,5 +85,13 @@ Lead.hasMany(ConversionEvent,{
 ConversionEvent.belongsTo(Lead,{
     foreignKey:"lead_id"
 })
+
+Organization.hasMany(ConversionEvent, {
+    foreignKey: "organization_id"
+});
+
+ConversionEvent.belongsTo(Organization, {
+    foreignKey: "organization_id"
+});
 
 export default ConversionEvent;
