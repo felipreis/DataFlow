@@ -25,10 +25,10 @@ async function startServer(){
 
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
-        Lead.sync({force:true});
-        JourneyEvent.sync({force:true});
-        Organization.sync({force:true})
-        ConversionEvent.sync({force:true})
+        Lead.sync();
+        JourneyEvent.sync();
+        Organization.sync()
+        ConversionEvent.sync()
     } catch (error) {
         console.error('Unable to connect to the database:', error);
     }

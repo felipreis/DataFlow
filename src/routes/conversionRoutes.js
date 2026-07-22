@@ -1,8 +1,8 @@
 import express from 'express'
-import ConversionController from '../controllers/conversion/ConversionController';
+import ConversionController from '../controllers/conversion/ConversionController.js';
 import apiKeyMiddleware from './../middlewares/apiKeyMiddleware.js'
 
-const conversionRouter = express.Router;
+const conversionRouter = express.Router();
 
 conversionRouter.get('/conversions',apiKeyMiddleware,ConversionController.getAll)
 conversionRouter.get('/conversions/:id',apiKeyMiddleware,ConversionController.getById)

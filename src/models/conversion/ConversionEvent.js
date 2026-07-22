@@ -62,7 +62,8 @@ const ConversionEvent = sequelize.define(
       references: {
           model: Organization,
           key: "id"
-    }
+      }
+    },
   },
   {
     indexes: [
