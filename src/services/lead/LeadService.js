@@ -3,7 +3,8 @@ import validarEmail from '../../middlewares/validator.js'
 import validators from "../../middlewares/validator.js";
 import JourneyEventService from '../../services/lead/JourneyEventService.js';
 import ConversionService from '../conversion/ConversionService.js';
-
+import MetaConversionMapper from '../../utils/MetaConversionMapper.js'
+import OrganizationRepository from '../../repositories/organization/OrganizationRepository.js';
 
 async function create(payload){
     //obrigatoriedade de campos
@@ -63,7 +64,11 @@ async function updateStatus(id,status,organization_id){
         }
     });
 
-    if(oldStatus !== "SALE" && newStatus === 'SALE'){await ConversionService.create(updateLead);}
+    if(oldStatus !== "SALE" && newStatus === 'SALE'){
+        const conv = await ConversionService.create(updateLead);
+        const organization = await OrganizationRepository.findById(organization_id);
+        console.dir(MetaConversionMapper.map(conv,organization), {depth:null});
+    }
 
 
     return updateLead;

@@ -61,7 +61,7 @@ async function updateStatus(req,res){
             return res.status(404).json({message: error.message})
         }
 
-        return status(500).json({message:error.message})
+        return res.status(500).json({message:error.message})
     }
 }
 

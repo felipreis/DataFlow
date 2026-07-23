@@ -19,7 +19,6 @@ async function metaInfo(id,payload){
     if(!organization){throw new Error('Orgnanização não encontrada!')};
 
     return await OrganizationRepository.metaInfo(id,payload);
-
 }
 
 export default {
