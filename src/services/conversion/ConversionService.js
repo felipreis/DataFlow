@@ -2,6 +2,8 @@ import ConversionRepository from "../../repositories/conversion/ConversionReposi
 import MetaConversionMapper from "../../utils/MetaConversionMapper.js";
 import OrganizationService from "../organization/OrganizationService.js";
 import JourneyEventService from "../lead/JourneyEventService.js";
+import MetaApiService from "../meta/MetaApiService.js";
+
 async function create(lead){
     
     const payload = {

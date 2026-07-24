@@ -3,9 +3,10 @@ import  axios  from  'axios' ;
 
 async function send(payload, organization) {
 
-    const url = `https://graph.facebook.com/v23.0/${organization.pixel_id}/events`;
+    const url = `https://graph.facebook.com/v25.0/${organization.pixel_id}/events`;
 
     try {
+        console.log(JSON.stringify(payload, null, 2));
         const response = await axios.post(
             url,
             payload,
@@ -23,7 +24,7 @@ async function send(payload, organization) {
         console.log("[META] Evento enviado com sucesso");
         console.log(response.data);
         return response.data;
-        
+
     } catch (error) {
         console.error("[META] Erro ao enviar evento");
         throw error;
