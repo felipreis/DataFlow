@@ -65,8 +65,13 @@ async function updateStatus(id,status,organization_id){
         }
     });
 
+    if(oldStatus !== "QUALIFIED" && oldStatus !== "SALE" && newStatus === 'QUALIFIED'){
+        await ConversionService.processConversion(updateLead,organization_id,"QualifiedLead")
+    }
+
+
     if(oldStatus !== "SALE" && newStatus === 'SALE'){
-        await ConversionService.processSale(updateLead,organization_id)
+        await ConversionService.processConversion(updateLead,organization_id,"Purchase")
     }
 
 

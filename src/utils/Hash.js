@@ -7,4 +7,6 @@ function hash(value) {
         .digest("hex");
 }
 
-export default hash
+export default {
+    hash
+}

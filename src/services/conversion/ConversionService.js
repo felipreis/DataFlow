@@ -4,12 +4,12 @@ import OrganizationService from "../organization/OrganizationService.js";
 import JourneyEventService from "../lead/JourneyEventService.js";
 import MetaApiService from "../meta/MetaApiService.js";
 
-async function create(lead){
+async function create(lead,eventName){
     
     const payload = {
         lead_id: lead.id,
         platform: "META",
-        event_name: "Purchase",
+        event_name: eventName,
         organization_id:lead.organization_id,
         payload: {
             email: lead.email,
@@ -63,8 +63,8 @@ async function markAsFailed(id, error) {
 
 }
 
-async function processSale(lead,organization_id){
-    const conv = await create(lead);
+async function processConversion(lead,organization_id,eventName){
+    const conv = await create(lead,eventName);
     const organization = await OrganizationService.findById(organization_id);
     const payloadMeta = MetaConversionMapper.map(conv,organization);
 
@@ -74,8 +74,11 @@ async function processSale(lead,organization_id){
         await JourneyEventService.create({
             lead_id: lead.id,
             event: "META_EVENT_SENT",
-            description: "Evento Purchase enviado para Meta",
-            payload: {}
+            description: `Evento ${eventName} enviado para Meta`,
+            payload: {
+                conversion_id: conv.id,
+                event_name: eventName
+            }
         });
     } catch (error) {
         const errorMessage = error.response?.data || error.message;
@@ -83,8 +86,11 @@ async function processSale(lead,organization_id){
         await JourneyEventService.create({
             lead_id: lead.id,
             event: "META_EVENT_FAILED",
-            description: "Erro ao enviar evento Purchase",
-            payload: errorMessage
+            description: `Erro ao enviar evento ${eventName}`,
+            payload: {
+                event_name: eventName,
+                error: errorMessage
+            }
         });
     }
 
@@ -96,5 +102,5 @@ export default{
     create,
     getAll,
     getById,
-    processSale
+    processConversion
 }

@@ -1,13 +1,13 @@
 
-import hash from "./Hash";
+import Hash from "./Hash.js";
 
 function map(conversion, organization) {
     const { payload } = conversion;
 
     const user_data = {};
 
-    if (payload.email) user_data.em = [hash(payload.email)];
-    if (payload.phone) user_data.ph = [hash(payload.phone)];
+    if (payload.email) user_data.em = [Hash.hash(payload.email)];
+    if (payload.phone) user_data.ph = [Hash.hash(payload.phone)];
     if (payload.fbc) user_data.fbc = payload.fbc;
     if (payload.fbp) user_data.fbp = payload.fbp;
 
