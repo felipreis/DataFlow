@@ -13,6 +13,10 @@ async function findByApiKey(api_key){
     return await OrganizationRepository.findByApiKey(api_key)
 }
 
+async function findById(organization_id){
+    return await OrganizationRepository.findById(organization_id);
+}
+
 async function metaInfo(id,payload){
 
     const organization = await OrganizationRepository.findById(id);
@@ -24,5 +28,6 @@ async function metaInfo(id,payload){
 export default {
     create,
     findByApiKey,
-    metaInfo
+    metaInfo,
+    findById
 }

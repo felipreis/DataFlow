@@ -1,5 +1,7 @@
 import ConversionRepository from "../../repositories/conversion/ConversionRepository.js"
-
+import MetaConversionMapper from "../../utils/MetaConversionMapper.js";
+import OrganizationService from "../organization/OrganizationService.js";
+import JourneyEventService from "../lead/JourneyEventService.js";
 async function create(lead){
     
     const payload = {
@@ -37,9 +39,60 @@ async function getById(id,organization_id){
     return conversion;
 }
 
+async function markAsSent(id) {
+
+    return await ConversionRepository.update(id, {
+        status: "SENT",
+        sent_at: new Date(),
+        error_message: null
+    });
+
+}
+
+async function markAsFailed(id, error) {
+
+    return await ConversionRepository.update(id, {
+        status: "FAILED",
+        error_message:
+            typeof error === "string"
+                ? error
+                : JSON.stringify(error)
+    });
+
+}
+
+async function processSale(lead,organization_id){
+    const conv = await create(lead);
+    const organization = await OrganizationService.findById(organization_id);
+    const payloadMeta = MetaConversionMapper.map(conv,organization);
+
+    try {
+        await MetaApiService.send(payloadMeta, organization);
+        await markAsSent(conv.id);
+        await JourneyEventService.create({
+            lead_id: lead.id,
+            event: "META_EVENT_SENT",
+            description: "Evento Purchase enviado para Meta",
+            payload: {}
+        });
+    } catch (error) {
+        const errorMessage = error.response?.data || error.message;
+        await markAsFailed( conv.id, errorMessage);
+        await JourneyEventService.create({
+            lead_id: lead.id,
+            event: "META_EVENT_FAILED",
+            description: "Erro ao enviar evento Purchase",
+            payload: errorMessage
+        });
+    }
+
+    return conv;
+}
+
 
 export default{
     create,
     getAll,
-    getById
+    getById,
+    processSale
 }

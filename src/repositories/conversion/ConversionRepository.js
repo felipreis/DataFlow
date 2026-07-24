@@ -18,10 +18,21 @@ async function getById(id,organization_id){
     }})
 }
 
+async function update(id, payload) {
+    await ConversionEvent.update(payload, {
+        where: {
+            id
+        }
+    });
+
+    return await ConversionEvent.findByPk(id);
+}
+
 
 export default{
     create,
     getAll,
-    getById
+    getById,
+    update
 }
 

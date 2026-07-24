@@ -26,7 +26,7 @@ async function startServer(){
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
         Lead.sync();
-        JourneyEvent.sync();
+        JourneyEvent.sync({force:true});
         Organization.sync()
         ConversionEvent.sync()
     } catch (error) {

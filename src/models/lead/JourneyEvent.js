@@ -26,7 +26,7 @@ const JourneyEvent = sequelize.define(
       allowNull: true,
     },
     event: {
-      type: DataTypes.ENUM('LEAD_RECEIVED','STATUS_CHANGED','SENT_TO_CRM','CRM_UPDATED','SALE_CONFIRMED', 'META_EVENT_SENT', 'GOOGLE_EVENT_SENT'),
+      type: DataTypes.ENUM('LEAD_RECEIVED','STATUS_CHANGED','SENT_TO_CRM','CRM_UPDATED','SALE_CONFIRMED', 'META_EVENT_SENT', 'GOOGLE_EVENT_SENT','META_EVENT_FAILED'),
       allowNull: false,
       defaultValue: 'LEAD_RECEIVED',
     },

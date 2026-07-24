@@ -4,7 +4,8 @@ import validators from "../../middlewares/validator.js";
 import JourneyEventService from '../../services/lead/JourneyEventService.js';
 import ConversionService from '../conversion/ConversionService.js';
 import MetaConversionMapper from '../../utils/MetaConversionMapper.js'
-import OrganizationRepository from '../../repositories/organization/OrganizationRepository.js';
+import MetaApiService from '../../services/meta/MetaApiService.js'
+import OrganizationService from '../organization/OrganizationService.js';
 
 async function create(payload){
     //obrigatoriedade de campos
@@ -65,9 +66,7 @@ async function updateStatus(id,status,organization_id){
     });
 
     if(oldStatus !== "SALE" && newStatus === 'SALE'){
-        const conv = await ConversionService.create(updateLead);
-        const organization = await OrganizationRepository.findById(organization_id);
-        console.dir(MetaConversionMapper.map(conv,organization), {depth:null});
+        await ConversionService.processSale(updateLead,organization_id)
     }
 
 
