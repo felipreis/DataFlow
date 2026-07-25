@@ -31,11 +31,10 @@ async function updateStatus(id,status,organization_id){
 
 }
 
-async function getBySourceId(sourceId,organization_id){
+async function getBySourceId(sourceId){
     return await Lead.findOne({
         where: {
-            source_id:sourceId,
-            organization_id
+            source_id:sourceId
         }
     })
 }

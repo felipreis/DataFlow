@@ -45,10 +45,9 @@ async function getLeadById(id,organization_id){
     return lead
 }
 
-async function getBySourceId (sourceId,organization_id){
-    const lead = await LeadRepository.getBySourceId(sourceId,organization_id)
-    if(!lead){ throw new Error('Lead não encontrado')}
-    return lead
+async function getBySourceId(sourceId){
+    return  await LeadRepository.getBySourceId(sourceId)
+    
 }
 
 async function updateStatus(id,status,organization_id){
@@ -89,6 +88,7 @@ export default {
     create,
     getAllLeads,
     getLeadById,
-    updateStatus
+    updateStatus,
+    getBySourceId
 }
 

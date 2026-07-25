@@ -5,7 +5,7 @@ function validarEmail(email) {
 
 function validarTelefone(telefone) {
     // Regex aceita: (XX) 9XXXX-XXXX ou XX9XXXX-XXXX
-    const regex = /^(?:\()[0-9]{2}(?:\))\s?[0-9]{4,5}-?[0-9]{4}$/;
+    const regex = /^p?:?\+?55?\s?\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/;
     return regex.test(telefone);
 }
 

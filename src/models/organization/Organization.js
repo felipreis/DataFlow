@@ -40,7 +40,29 @@ const Organization = sequelize.define(
     test_event_code:{
       type:DataTypes.STRING,
       allowNull:true,
-    }
+    },
+    spreadsheet_enabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    spreadsheet_id: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    spreadsheet_range: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    spreadsheet_sync_interval: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1, // minutos
+    },
+    last_spreadsheet_sync: {
+        type: DataTypes.DATE,
+        allowNull: true,
+    },
   },
   {
     sequelize,

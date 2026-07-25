@@ -1,15 +1,19 @@
-const mapper = {
+function map(row) {
 
-    "Qualificado":"QUALIFIED",
+    const comercial = row["Status Comercial"];
+    const lead = row["Status do Lead"];
 
-    "Contactado":"RECEIVED",
+    if (comercial === "Venda") {
+        return "SALE";
+    }
 
-    "Não Respondeu":"RECEIVED",
+    if (lead === "Qualificado") {
+        return "QUALIFIED";
+    }
 
-    "Número invalido":"RECEIVED",
-
-    "Fora da aréa de atuação":"RECEIVED",
-
-    "Fora do Perfil":"RECEIVED"
-
+    return "RECEIVED";
 }
+
+export default {
+    map
+};

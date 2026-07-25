@@ -1,15 +1,74 @@
 import GoogleSheetsService from "../google/GoogleSheetsService.js";
+import SpreadsheetLeadMapper from '../../utils/SpreadsheetLeadMapper.js'
+import SpreadsheetStatusMapper from "../../utils/SpreadsheetStatusMapper.js";
 
-async function sync(spreadsheetId, range) {
+import LeadService from "../lead/LeadService.js";
+
+async function sync(organization) {
 
     const rows = await GoogleSheetsService.read(
-        spreadsheetId,
-        range
+        organization.spreadsheet_id,
+        organization.spreadsheet_range
     );
 
-    console.log(rows);
+    for (const row of rows) {
 
-    // Depois vamos percorrer cada linha
+        await processRow(row, organization);
+
+    }
+
+}
+
+async function processRow(row, organization) {
+
+    const lead =
+        await LeadService.getBySourceId(row.id);
+
+    if (!lead) {
+
+        return createLead(row, organization);
+
+    }
+
+    return updateLead(lead, row);
+
+}
+
+async function createLead(row, organization) {
+
+    const payload =
+        SpreadsheetLeadMapper.map(
+            row,
+            organization.id
+        );
+
+    return LeadService.create(payload);
+
+}
+
+async function updateLead(lead, row) {
+
+    const newStatus =
+        SpreadsheetStatusMapper.map(row);
+
+    if (newStatus === lead.status) {
+
+        return;
+
+    }
+
+    return LeadService.updateStatus(
+
+        lead.id,
+
+        {
+            status: newStatus
+        },
+
+        lead.organization_id
+
+    );
+
 }
 
 export default {
