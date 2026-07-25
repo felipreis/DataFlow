@@ -45,6 +45,12 @@ async function getLeadById(id,organization_id){
     return lead
 }
 
+async function getBySourceId (sourceId,organization_id){
+    const lead = await LeadRepository.getBySourceId(sourceId,organization_id)
+    if(!lead){ throw new Error('Lead não encontrado')}
+    return lead
+}
+
 async function updateStatus(id,status,organization_id){
     if (status.status !== 'RECEIVED' && status.status !== 'QUALIFIED' && status.status !== 'SALE' ){throw new Error('Não é possível alterar status') }
     const lead = await LeadRepository.getLeadById(id,organization_id)

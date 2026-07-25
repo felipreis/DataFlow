@@ -28,7 +28,16 @@ async function updateStatus(id,status,organization_id){
     })
 
     return await getLeadById(id,organization_id);
-    
+
+}
+
+async function getBySourceId(sourceId,organization_id){
+    return await Lead.findOne({
+        where: {
+            source_id:sourceId,
+            organization_id
+        }
+    })
 }
 
 
@@ -36,5 +45,6 @@ export default {
     create,
     getAllLeads,
     getLeadById,
-    updateStatus
+    updateStatus,
+    getBySourceId
 }

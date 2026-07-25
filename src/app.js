@@ -9,7 +9,6 @@ import Organization from './models/organization/Organization.js';
 import ConversionEvent from './models/conversion/ConversionEvent.js';
 import conversionRouter from './routes/conversionRoutes.js';
 
-
 const app = express();
 const PORT = process.env.PORT
 
