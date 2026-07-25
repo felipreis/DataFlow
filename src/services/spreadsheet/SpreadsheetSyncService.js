@@ -42,7 +42,15 @@ async function createLead(row, organization) {
             organization.id
         );
 
-    return LeadService.create(payload);
+    const lead = await LeadService.create(payload);
+
+    const status = SpreadsheetStatusMapper.map(row);
+
+    if(status !== "RECEIVED"){
+        await LeadService.updateStatus(lead.id,{status},organization.id)
+    }
+
+    return lead;
 
 }
 
