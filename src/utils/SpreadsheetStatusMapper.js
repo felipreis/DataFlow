@@ -3,7 +3,7 @@ function map(row) {
     const comercial = row["Status Comercial"];
     const lead = row["Status do Lead"];
 
-    if (comercial === "Venda") {
+    if (comercial === "Venda efetuada") {
         return "SALE";
     }
 
