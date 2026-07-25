@@ -1,10 +1,4 @@
-function cleanPhone(phone) {
-    if (!phone) return null;
-
-    return phone
-        .replace("p:", "")
-        .replace(/\D/g, "");
-}
+import PhonesUtils from "./PhonesUtils.js";
 
 function map(row, organization_id) {
 
@@ -17,7 +11,7 @@ function map(row, organization_id) {
 
         name: row.nome_completo,
 
-        phone: cleanPhone(row.telefone),
+        phone: PhonesUtils.normalize(row.telefone),
 
         email: row.email,
 

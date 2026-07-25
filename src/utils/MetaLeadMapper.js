@@ -1,3 +1,5 @@
+import PhonesUtils from "./PhonesUtils.js";
+
 function map(payload) {
     return {
         source: "META",
@@ -8,7 +10,7 @@ function map(payload) {
 
         email: payload.email,
 
-        phone: payload.phone_number,
+        phone: PhonesUtils.normalize(payload.phone_number),
 
         campaign_id: payload.campaign_id,
 

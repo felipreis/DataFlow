@@ -3,10 +3,10 @@ function validarEmail(email) {
     return regex.test(email);
 }
 
-function validarTelefone(telefone) {
-    // Regex aceita: (XX) 9XXXX-XXXX ou XX9XXXX-XXXX
-    const regex = /^p?:?\+?55?\s?\(?\d{2}\)?\s?\d{4,5}[-\s]?\d{4}$/;
-    return regex.test(telefone);
+function validarTelefone(phone) {
+     if(!phone) return false;
+
+    return /^(55)?\d{10,11}$/.test(phone);
 }
 
 export default {
