@@ -8,6 +8,7 @@ function map(conversion, organization) {
 
     if (payload.email) user_data.em = [Hash.hash(payload.email)];
     if (payload.phone) user_data.ph = [Hash.hash(payload.phone)];
+    if (payload.city) { user_data.ct = [Hash.hash(payload.city)]; }
     if (payload.fbc) user_data.fbc = payload.fbc;
     if (payload.fbp) user_data.fbp = payload.fbp;
 

@@ -14,6 +14,7 @@ async function create(lead,eventName){
         payload: {
             email: lead.email,
             phone: lead.phone,
+            city: lead.city,
             fbc: lead.fbc,
             fbp: lead.fbp,
             fbclid: lead.fbclid,

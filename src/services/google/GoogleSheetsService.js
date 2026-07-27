@@ -39,6 +39,8 @@ async function read(spreadsheetId, range) {
 
         leads.push(objeto)
 
+        console.log(objeto.cidade);
+
     });
 
     return leads;

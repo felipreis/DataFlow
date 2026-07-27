@@ -13,6 +13,8 @@ function map(row, organization_id) {
 
         phone: PhonesUtils.normalize(row.telefone),
 
+        city: row.cidade,
+
         email: row.email,
 
         campaign_id: row.campaign_id,

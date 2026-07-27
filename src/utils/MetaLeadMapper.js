@@ -10,6 +10,8 @@ function map(payload) {
 
         email: payload.email,
 
+        city: payload.city,
+
         phone: PhonesUtils.normalize(payload.phone_number),
 
         campaign_id: payload.campaign_id,
