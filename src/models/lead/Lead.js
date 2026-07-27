@@ -116,7 +116,11 @@ const Lead = sequelize.define(
     currency:{
       type:DataTypes.STRING,
       defaultValue:"BRL"
-    }
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
   },
   {
     sequelize,
