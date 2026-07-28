@@ -18,7 +18,7 @@ async function create(req,res){
          error.message === "Source é obrigatório." ||
          error.message === "Nome é obrigatório." ) {return res.status(400).json({message: error.message})}
         
-        if(error.message === 'Formato de telefone inválido' || error.message === 'Formato de email inválido'){
+        if(error.message === 'Formato de email inválido'){
             return res.status(422).json({message: error.message})
         }
 

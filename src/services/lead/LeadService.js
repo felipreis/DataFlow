@@ -6,17 +6,28 @@ import ConversionService from '../conversion/ConversionService.js';
 import MetaConversionMapper from '../../utils/MetaConversionMapper.js'
 import MetaApiService from '../../services/meta/MetaApiService.js'
 import OrganizationService from '../organization/OrganizationService.js';
+import PhonesUtils from '../../utils/PhonesUtils.js';
 
 async function create(payload){
     //obrigatoriedade de campos
-    if(!payload.phone && !payload.email){throw new Error("É obrigatório informar e-mail ou telefone.")}
     if(!payload.source){ throw new Error("Source é obrigatório.");}
     if(!payload.name){ throw new Error("Nome é obrigatório.");}
 
     //validação dos campos dos campos
-    if(payload.phone && !validators.validarTelefone(payload.phone) ) {
-        throw new Error("Formato de telefone inválido");
+    if(payload.phone ) {
+        const originalPhone = payload.phone
+        payload.phone = PhonesUtils.normalize(payload.phone);
+       
+        if (!PhonesUtils.isValid(payload.phone)) {
+            payload.metadata = {
+            ...payload.metadata,
+            invalid_phone: originalPhone
+            };
+            payload.phone = null;
+        }
     }
+
+    if(!payload.phone && !payload.email){throw new Error("É obrigatório informar e-mail ou telefone.")}
 
     if(payload.email && !validators.validarEmail(payload.email)){
         throw new Error ('Formato de email inválido')
