@@ -46,9 +46,24 @@ async function create(payload){
 
 }
 
-async function getAllLeads(organization_id){
-    return await LeadRepository.getAllLeads(organization_id);
+async function getAllLeads(organization_id,filters){
+    const page = Number(filters.page || 1)
+    const limit = Number(filters.limit || 20)
+    const offset = (page - 1)*limit 
+
+    const { rows, count } = await LeadRepository.getAllLeads(organization_id, limit, offset)
+
+    return {
+        data: rows,
+        pagination: {
+            page,
+            limit,
+            total: count,
+            totalPages: Math.ceil(count / limit),
+        },
+    }
 }
+
 
 async function getLeadById(id,organization_id){
     const lead = await LeadRepository.getLeadById(id,organization_id);
