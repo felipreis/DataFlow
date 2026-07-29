@@ -1,6 +1,4 @@
-import { where } from 'sequelize';
 import Lead from '../../models/lead/Lead.js'
-import LeadService from '../../services/lead/LeadService.js';
 import { Sequelize } from 'sequelize'
 
 
