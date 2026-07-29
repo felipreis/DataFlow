@@ -109,12 +109,27 @@ async function updateStatus(id,status,organization_id){
     return updateLead;
 }
 
+async function getLeadStats(organization_id) {
+    const rows = await LeadRepository.getLeadStats(organization_id)
+
+    const stats = { total: 0, RECEIVED: 0, QUALIFIED: 0, SALE: 0 }
+
+    rows.forEach((row) => {
+        const count = Number(row.count)
+        stats[row.status] = count
+        stats.total += count
+    })
+
+    return stats
+}
+
 
 export default {
     create,
     getAllLeads,
     getLeadById,
     updateStatus,
-    getBySourceId
+    getBySourceId,
+    getLeadStats
 }
 

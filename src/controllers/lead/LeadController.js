@@ -66,9 +66,17 @@ async function updateStatus(req,res){
     }
 }
 
+async function getLeadStats(req, res) {
+    const organization_id = req.organization.id
+    const retorno = await LeadService.getLeadStats(organization_id)
+    responseHttp(retorno, res)
+}
+
+
 export default {
     create,
     getAllLeads,
     getLeadById,
-    updateStatus
+    updateStatus,
+    getLeadStats
 }

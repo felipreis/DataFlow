@@ -12,10 +12,12 @@ router.get('/health', (req,res) => {
 
 router.post('/lead',apiKeyMiddleware, LeadController.create)
 router.get('/lead',apiKeyMiddleware, LeadController.getAllLeads)
+router.get('/lead/stats',apiKeyMiddleware,LeadController.getLeadStats)
 router.get('/lead/:id',apiKeyMiddleware,LeadController.getLeadById)
 router.put('/lead/:id/status',apiKeyMiddleware, LeadController.updateStatus)
 
 router.get('/lead/:id/journey',apiKeyMiddleware,JourneyEventController.getByLeadId)
+
 
 router.post('/organizations',OrganizationController.create);
 router.get('/organizations/:api_key',OrganizationController.findByApiKey)

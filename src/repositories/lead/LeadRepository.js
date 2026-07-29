@@ -1,6 +1,8 @@
 import { where } from 'sequelize';
 import Lead from '../../models/lead/Lead.js'
 import LeadService from '../../services/lead/LeadService.js';
+import { Sequelize } from 'sequelize'
+
 
 async function create(payload){
     return await Lead.create(payload);
@@ -44,11 +46,22 @@ async function getBySourceId(sourceId){
     })
 }
 
+async function getLeadStats(organization_id) {
+    const rows = await Lead.findAll({
+        attributes: ['status', [Sequelize.fn('COUNT', Sequelize.col('id')), 'count']],
+        where: { organization_id },
+        group: ['status'],
+        raw: true,
+    })
+    return rows
+}
+
 
 export default {
     create,
     getAllLeads,
     getLeadById,
     updateStatus,
-    getBySourceId
+    getBySourceId,
+    getLeadStats
 }
