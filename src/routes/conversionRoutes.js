@@ -5,6 +5,7 @@ import apiKeyMiddleware from './../middlewares/apiKeyMiddleware.js'
 const conversionRouter = express.Router();
 
 conversionRouter.get('/conversions',apiKeyMiddleware,ConversionController.getAll)
+router.get('/conversions/stats', apiKeyMiddleware, ConversionController.getStats)
 conversionRouter.get('/conversions/:id',apiKeyMiddleware,ConversionController.getById)
 
 

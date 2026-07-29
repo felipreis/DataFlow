@@ -98,10 +98,25 @@ async function processConversion(lead,organization_id,eventName){
     return conv;
 }
 
+async function getStats(organization_id) {
+    const rows = await ConversionRepository.getStats(organization_id)
+
+    const stats = { total: 0, PENDING: 0, PROCESSING: 0, SENT: 0, FAILED: 0 }
+
+    rows.forEach((row) => {
+        const count = Number(row.count)
+        stats[row.status] = count
+        stats.total += count
+    })
+
+    return stats
+}
+
 
 export default{
     create,
     getAll,
     getById,
-    processConversion
+    processConversion,
+    getStats
 }

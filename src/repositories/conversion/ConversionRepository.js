@@ -1,5 +1,6 @@
 import ConversionEvent from '../../models/conversion/ConversionEvent.js'
 import Lead from '../../models/lead/Lead.js'
+import { Sequelize } from 'sequelize'
 
 async function create(payload){
     return await ConversionEvent.create(payload);
@@ -28,11 +29,22 @@ async function update(id, payload) {
     return await ConversionEvent.findByPk(id);
 }
 
+async function getStats(organization_id) {
+    const rows = await ConversionEvent.findAll({
+        attributes: ['status', [Sequelize.fn('COUNT', Sequelize.col('id')), 'count']],
+        where: { organization_id },
+        group: ['status'],
+        raw: true,
+    })
+    return rows
+}
+
 
 export default{
     create,
     getAll,
     getById,
-    update
+    update,
+    getStats
 }
 

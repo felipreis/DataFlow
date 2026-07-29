@@ -31,7 +31,18 @@ async function getById(req,res){
 
 }
 
+async function getStats(req, res) {
+    try {
+        const organization_id = req.organization.id;
+        const retorno = await ConversionService.getStats(organization_id);
+        responseHttp(retorno, res)
+    } catch (error) {
+        return res.status(500).json({message: error.message})
+    }
+}
+
 export default{
     getAll,
-    getById
+    getById,
+    getStats
 }
