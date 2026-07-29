@@ -8,11 +8,11 @@ async function create(payload){
     return await Lead.create(payload);
 }
 
-async function getAllLeads(organization_id,limit,offset){
+async function getAllLeads(organization_id,where,limit,offset){
     return await Lead.findAndCountAll({
+        where: {...where, organization_id},
         limit: limit,
         offset: offset,
-        where: { organization_id: organization_id },
         order: [['createdAt', 'DESC']],
     })
 }

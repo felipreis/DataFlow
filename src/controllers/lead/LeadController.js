@@ -29,8 +29,8 @@ async function create(req,res){
 
 async function getAllLeads(req,res){
     const organization_id = req.organization.id
-    const {page,limit} = req.query;
-    const retorno = await LeadService.getAllLeads(organization_id,{page,limit});
+    const {search, status, page,limit} = req.query;
+    const retorno = await LeadService.getAllLeads(organization_id,{search,status,page,limit});
     responseHttp(retorno,res);
 }
 

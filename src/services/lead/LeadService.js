@@ -7,6 +7,7 @@ import MetaConversionMapper from '../../utils/MetaConversionMapper.js'
 import MetaApiService from '../../services/meta/MetaApiService.js'
 import OrganizationService from '../organization/OrganizationService.js';
 import PhonesUtils from '../../utils/PhonesUtils.js';
+import { Op } from 'sequelize';
 
 async function create(payload){
     //obrigatoriedade de campos
@@ -51,7 +52,15 @@ async function getAllLeads(organization_id,filters){
     const limit = Number(filters.limit || 20)
     const offset = (page - 1)*limit 
 
-    const { rows, count } = await LeadRepository.getAllLeads(organization_id, limit, offset)
+    const where = {};
+    if(filters.status){where.status = filters.status}
+    if(filters.search){ where[Op.or] = [  
+        {name: {[Op.iLike]:`%${filters.search}%` }},
+        {email: {[Op.iLike]:`%${filters.search}%` }},
+        {phone: {[Op.iLike]:`%${filters.search}%` }},
+    ]}
+
+    const { rows, count } = await LeadRepository.getAllLeads(organization_id, where, limit, offset)
 
     return {
         data: rows,
