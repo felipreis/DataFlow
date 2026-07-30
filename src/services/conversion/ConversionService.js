@@ -32,8 +32,22 @@ async function create(lead,eventName){
     return await ConversionRepository.create(payload);
 }
 
-async function getAll(organization_id){
-    return await ConversionRepository.getAll(organization_id)
+async function getAll(organization_id,rawPage,rawLimit){
+    const page = Number(rawPage || 1);
+    const limit  = Number(rawLimit || 10);
+
+    const offset = (page - 1)*limit
+    const {rows, count} = await ConversionRepository.getAll(organization_id,limit,offset)
+
+        return {
+        data: rows,
+        pagination: {
+            page,
+            limit,
+            total: count,
+            totalPages: Math.ceil(count / limit),
+        },
+    }
 }
 
 async function getById(id,organization_id){

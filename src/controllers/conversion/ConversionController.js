@@ -8,7 +8,8 @@ import responseHttp from '../../response/responseHttp.js'
 async function getAll(req,res){
     try {
         const organization_id = req.organization.id;
-        const retorno = await ConversionService.getAll(organization_id);
+        const {page,limit} = req.query;
+        const retorno = await ConversionService.getAll(organization_id,page,limit);
         responseHttp(retorno,res)
     } catch (error) {
         return res.status(500).json({message:error.message})

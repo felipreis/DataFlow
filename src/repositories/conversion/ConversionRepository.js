@@ -6,8 +6,12 @@ async function create(payload){
     return await ConversionEvent.create(payload);
 }
 
-async function getAll(organization_id){
-    return ConversionEvent.findAll({ where: {
+async function getAll(organization_id,limit,offset){
+    return ConversionEvent.findAndCountAll({ 
+        limit: limit,
+        offset: offset,
+        order: [['createdAt', 'DESC']],
+        where: {
         organization_id: organization_id
     }});
 }
